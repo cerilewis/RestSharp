@@ -307,8 +307,7 @@ namespace RestSharp
                 parameters = request.Parameters.Where(p => p.Type == ParameterType.QueryString).ToList();
             }
 
-            if (!parameters.Any())
-                return new Uri(assembled);
+            if (!parameters.Any()) return new Uri(assembled).ForceCanonicalPathAndQuery();
 
             // build and attach querystring
             var data = EncodeParameters(parameters);
@@ -316,7 +315,7 @@ namespace RestSharp
 
             assembled = string.Concat(assembled, separator, data);
 
-            return new Uri(assembled);
+            return new Uri(assembled).ForceCanonicalPathAndQuery();
         }
 
         private static string EncodeParameters(IEnumerable<Parameter> parameters)

@@ -266,5 +266,23 @@ namespace RestSharp.Tests
                     var client = new RestClient("invalid url");
                 });
         }
+
+        [Fact]
+        public void Should_Not_Decode_Escaped_Forward_Slash()
+        {
+            var request = new RestRequest();
+            request.Resource = "%2f/resource";
+
+            var client = new RestClient("http://example.com/");
+
+            var output = client.BuildUri(request);
+
+            Assert.Equal("http://example.com/%2f/resource", output.AbsoluteUri);
+        }
+
+        [Fact]
+        public void ForceCanonicalPathAndQuery_Prevents_Decoding_Of_Escaped_Forward_Slash()
+        {
+        }
     }
 }
