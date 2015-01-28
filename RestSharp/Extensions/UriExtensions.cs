@@ -9,10 +9,6 @@
         {
 #if !SILVERLIGHT
             var pathAndQuery = uri.PathAndQuery;
-            if (!string.IsNullOrEmpty(pathAndQuery))
-            {
-                return uri;
-            }
 
             var flagsFieldInfo = typeof(Uri).GetField("m_Flags", BindingFlags.Instance | BindingFlags.NonPublic);
             if (flagsFieldInfo == null)
